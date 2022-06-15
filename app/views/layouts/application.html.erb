@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= yield(:title) %> | Ruby on Rails Tutorial Sample App</title>
+    <title><%= full_title(yield(:title)) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,6 +12,22 @@
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="navbar">
+      <a href="/static_pages/home">
+        home
+      </a> 
+      <a href="/static_pages/about">about</a>
+      <a href="/static_pages/help">help</a>
+
+    </nav>
+
+    <article class="content">
+
+      <%= yield %>
+    </article>
+
+    <footer class="footer">
+      This is a footer for sample app
+    </footer>
   </body>
 </html>
