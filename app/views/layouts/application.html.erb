@@ -9,25 +9,16 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= render 'layouts/shim' %>
   </head>
 
   <body>
-    <nav class="navbar">
-      <a href="/static_pages/home">
-        home
-      </a> 
-      <a href="/static_pages/about">about</a>
-      <a href="/static_pages/help">help</a>
+    <%= render 'layouts/header' %>
 
-    </nav>
-
-    <article class="content">
-
+    <article class="container">
       <%= yield %>
     </article>
 
-    <footer class="footer">
-      This is a footer for sample app
-    </footer>
+    <%= render 'layouts/footer' %>
   </body>
 </html>

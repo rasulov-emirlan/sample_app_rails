@@ -1,0 +1,10 @@
+{
+  "name": "sample_app",
+  "version": "1.0.0",
+  "description": "This is a sample app written in rails",
+  "main": "index.js",
+  "repository": "https://github.com/rasulov-emirlan/sample_app_rails.git",
+  "author": "Emirlan Rasulov <rasulov.emirlan@gmail.com>",
+  "license": "MIT",
+  "private": null
+}
