@@ -6,19 +6,15 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= render 'layouts/shim' %>
   </head>
-
   <body>
     <%= render 'layouts/header' %>
-
     <article class="container">
       <%= yield %>
       <%= render 'layouts/footer' %>
     </article>
-
   </body>
 </html>
