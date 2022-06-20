@@ -9,7 +9,7 @@ class User < ApplicationRecord
             format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
             uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, length: { minimum: 6 }
+  validates :password, length: { minimum: 6 }, allow_blank: true
 
   def self.digest(string)
     cost = if ActiveModel::SecurePassword.min_cost
@@ -27,12 +27,17 @@ class User < ApplicationRecord
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
+    remember_digest
   end
 
   def authenticated?(remember_token)
     return false if remember_digest.nil?
 
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  def session_token
+    remember_digest || remember
   end
 
   def forget
