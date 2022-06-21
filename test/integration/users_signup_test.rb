@@ -1,8 +1,13 @@
 require 'test_helper'
 
-class UsersSignupTest < ActionDispatch::IntegrationTest
+class UsersSignup < ActionDispatch::IntegrationTest
+  def setup
+    ActionMailer::Base.deliveries.clear
+  end
+end
+
+class UsersSignupTest < UsersSignup
   test 'invalid signup information' do
-    get signup_path
     assert_no_difference 'User.count' do
       post users_path, params: {
         user: {
@@ -22,12 +27,51 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       post users_path, params: {
         user: {
           name: 'Example User',
-          email: 'user@example.com',
+          email: 'eluseraaa@example.com',
           password: 'password',
           password_confirmation: 'password'
         }
       }
     end
+    assert_equal 1, ActionMailer::Base.deliveries.size
+  end
+end
+
+class AccountActivationTest < UsersSignup
+  def setup
+    super
+    post users_path, params: {
+      user: {
+        name: 'Example User',
+        email: 'user@example.com',
+        password: 'password',
+        password_confirmation: 'password'
+      }
+    }
+    @user = assigns(:user)
+  end
+
+  test 'should not be activated' do
+    assert_not @user.activated?
+  end
+
+  test 'should not be able to log in before activation' do
+    log_in_as(@user)
+    assert_not is_logged_in?
+  end
+
+  test 'should not be able to log in with invalid activation link' do
+    get edit_account_activation_path('invalid token', email: @user.email)
+    assert_not is_logged_in?
+  end
+
+  test 'should not be able to log in with invalid email' do
+    get edit_account_activation_path(@user.activation_token, email: 'wrong')
+    assert_not is_logged_in?
+  end
+
+  test 'should log in successfully with valid activation token and email' do
+    get edit_account_activation_path(@user.activation_token, email: @user.email)
     follow_redirect!
     assert_template 'users/show'
     assert is_logged_in?
