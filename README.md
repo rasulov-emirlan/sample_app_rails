@@ -1,24 +1,24 @@
-# README
+# Sample app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## This is a Sample app built according to [Ruby on Rails tutorial](https://www.learnenough.com/course/ruby_on_rails_tutorial_7th_edition/frontmatter). If you want you can check it out via [this link](https://hellorailsemirlan.herokuapp.com)😎
 
-Things you may want to cover:
+- Ruby version
+  3.1.2
+- System dependencies
+  imagemagick
+- Configuration
+  You will have to add your email and application password for it to your enviorment variables.
+  Also dont forget to include a database url to postgres.
 
-* Ruby version
+  ```
+  EMAIL_PSWD=password
+  EMAIL_USER=email
+  DATABASE_URL=url
+  ```
 
-* System dependencies
+- Database creation
+  If this app is connected to the database then just run the wollowing command in the root of the project.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+rails db:migrate
+```
